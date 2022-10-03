@@ -64,6 +64,9 @@ void NetworkManagerServer::ProcessPacket( ClientProxyPtr inClientProxy, InputMem
 			HandleInputPacket( inClientProxy, inInputStream );
 		}
 		break;
+	case kExitCC:
+		SendBByePacket(inClientProxy);
+		break;
 	default:
 		LOG( "Unknown packet type received from %s", inClientProxy->GetSocketAddress().ToString().c_str() );
 		break;
@@ -116,6 +119,19 @@ void NetworkManagerServer::SendWelcomePacket( ClientProxyPtr inClientProxy )
 	LOG( "Server Welcoming, new client '%s' as player %d", inClientProxy->GetName().c_str(), inClientProxy->GetPlayerId() );
 
 	SendPacket( welcomePacket, inClientProxy->GetSocketAddress() );
+}
+
+void NetworkManagerServer::SendBByePacket(ClientProxyPtr inClientProxy)
+{
+	OutputMemoryBitStream bbyePacket;
+
+	bbyePacket.Write(kByeCC);
+	bbyePacket.Write(inClientProxy->GetPlayerId());
+
+	LOG("Server bye-bye to client '%s' as player %d", inClientProxy->GetName().c_str(), inClientProxy->GetPlayerId());
+
+	SendPacket(bbyePacket, inClientProxy->GetSocketAddress());
+
 }
 
 void NetworkManagerServer::RespawnCats()

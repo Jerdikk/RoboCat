@@ -27,6 +27,7 @@ private:
 			void	ProcessPacket( ClientProxyPtr inClientProxy, InputMemoryBitStream& inInputStream );
 			
 			void	SendWelcomePacket( ClientProxyPtr inClientProxy );
+			void	SendBByePacket(ClientProxyPtr inClientProxy);
 			void	UpdateAllClients();
 			
 			void	AddWorldStateToPacket( OutputMemoryBitStream& inOutputStream );
