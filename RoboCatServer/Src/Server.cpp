@@ -111,7 +111,7 @@ void Server::SpawnCatForPlayer( int inPlayerId )
 
 }
 
-void Server::RemoveCatForPlayer(int inPlayerId)
+/*void Server::RemoveCatForPlayer(int inPlayerId)
 {
 	const auto& gameObjects = World::sInstance->GetGameObjects();
 	for (int i = 0, c = gameObjects.size(); i < c; ++i)
@@ -125,7 +125,7 @@ void Server::RemoveCatForPlayer(int inPlayerId)
 		}
 	}
 
-}
+}*/
 
 void Server::HandleLostClient( ClientProxyPtr inClientProxy )
 {
