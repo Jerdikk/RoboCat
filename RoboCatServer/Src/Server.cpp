@@ -111,6 +111,22 @@ void Server::SpawnCatForPlayer( int inPlayerId )
 
 }
 
+void Server::RemoveCatForPlayer(int inPlayerId)
+{
+	const auto& gameObjects = World::sInstance->GetGameObjects();
+	for (int i = 0, c = gameObjects.size(); i < c; ++i)
+	{
+		GameObjectPtr go = gameObjects[i];
+		RoboCat* cat = go->GetAsCat();
+		if (cat && cat->GetPlayerId() == inPlayerId)
+		{
+			World::sInstance->RemoveGameObject(go);
+			break;
+		}
+	}
+
+}
+
 void Server::HandleLostClient( ClientProxyPtr inClientProxy )
 {
 	//kill client's cat
