@@ -5,6 +5,7 @@ public:
 	static bool StaticInit();
 
 	virtual bool DoFrame() override;
+	virtual void HandleEvent(SDL_Event* inEvent) override;
 
 	virtual int Run();
 
@@ -14,12 +15,16 @@ public:
 	RoboCatPtr	GetCatForPlayer( int inPlayerId );
 	void	SpawnCatForPlayer( int inPlayerId );
 	//void	RemoveCatForPlayer(int inPlayerId);
-
+	~Server();
 
 private:
 	Server();
 
+	
+
 	bool	InitNetworkManager();
 	void	SetupWorld();
+
+	SDL_Window* mMainWindow;
 
 };

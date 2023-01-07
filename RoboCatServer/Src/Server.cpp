@@ -9,6 +9,8 @@ bool Server::StaticInit()
 {
 	sInstance.reset( new Server() );
 
+	
+
 	return true;
 }
 
@@ -21,6 +23,8 @@ Server::Server()
 
 	InitNetworkManager();
 	
+	mMainWindow = SDL_CreateWindow("Robo Cat Server", 100, 100, 280, 72, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+
 	//NetworkManagerServer::sInstance->SetDropPacketChance( 0.8f );
 	//NetworkManagerServer::sInstance->SetSimulatedLatency( 0.25f );
 	//NetworkManagerServer::sInstance->SetSimulatedLatency( 0.5f );
@@ -92,6 +96,26 @@ bool Server::DoFrame()
 
 }
 
+void Server::HandleEvent(SDL_Event* inEvent)
+{
+	switch (inEvent->type)
+	{
+	case SDL_KEYDOWN:
+		//InputManager::sInstance->HandleInput(EIA_Pressed, inEvent->key.keysym.sym);
+		break;
+	case SDL_KEYUP:
+		//InputManager::sInstance->HandleInput(EIA_Released, inEvent->key.keysym.sym);
+		if (inEvent->key.keysym.sym == 27)
+		{
+			SetShouldKeepRunning(false);
+		}
+
+		break;
+	default:
+		break;
+	}
+}
+
 void Server::HandleNewClient( ClientProxyPtr inClientProxy )
 {
 	
@@ -109,6 +133,11 @@ void Server::SpawnCatForPlayer( int inPlayerId )
 	//gotta pick a better spawn location than this...
 	cat->SetLocation( Vector3( 1.f - static_cast< float >( inPlayerId ), 0.f, 0.f ) );
 
+}
+
+Server::~Server()
+{
+	SDL_DestroyWindow(mMainWindow);
 }
 
 /*void Server::RemoveCatForPlayer(int inPlayerId)

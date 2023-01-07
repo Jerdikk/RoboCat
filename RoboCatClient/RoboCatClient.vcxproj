@@ -85,6 +85,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -107,7 +108,7 @@
       <AdditionalLibraryDirectories>..\SDL\lib\win\x86</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)\..\SDL\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</Command>
+      <Command>xcopy "$(ProjectDir)..\SDL\lib\win\x86\*.dll" "$(OutDir)" /i /s /y</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copying SDL DLLs...</Message>
