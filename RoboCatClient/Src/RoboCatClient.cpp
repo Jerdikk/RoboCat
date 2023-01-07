@@ -29,28 +29,21 @@ void RoboCatClient::Update()
 	{
 		if (InputManager::sInstance->mButton[1])
 		{
-			SDL_Rect *viewTransform = RenderManager::sInstance->GetViewTransform();
+			SDL_Rect *viewTransform = RenderManager::sInstance->GetViewTransform();			
+			Vector3 objLocation = mSpriteComponent->GetGameObject()->GetLocation();			
+			Vector3 objInScreenCoords;
+			Vector3 initForwardVector(0.0, -1.0, 0.0);
 
-			/*mViewTransform->x = viewport.w / 2;
-			mViewTransform->y = viewport.h / 2;
-			mViewTransform->w = 100;
-			mViewTransform->h = 100;*/
+			objInScreenCoords.mX = static_cast<int>(objLocation.mX * viewTransform->w + viewTransform->x);
+			objInScreenCoords.mY = static_cast<int>(objLocation.mY * viewTransform->h + viewTransform->y);
 
+			Vector3 currentDirectionVector = InputManager::sInstance->mClickedDown[1]-objInScreenCoords;
+			currentDirectionVector.Normalize2D();
 
-			//SDL_Rect viewport = GraphicsDriver::sInstance->GetLogicalViewport();		
-
-			Vector3 objLocation = mSpriteComponent->GetGameObject()->GetLocation();
-			float objScale = mSpriteComponent->GetGameObject()->GetScale();
-			Vector3 temp;
-			temp.mX = static_cast<int>(objLocation.mX * viewTransform->w + viewTransform->x);
-			temp.mY = static_cast<int>(objLocation.mY * viewTransform->h + viewTransform->y);
-
-			Vector3 temp3(0.0, -1.0, 0.0);
-			Vector3 temp1 = InputManager::sInstance->mClickedDown[1]-temp;
-			temp1.Normalize2D();
-			float dotAB = Dot2D(temp1, temp3);
+			float dotAB = Dot2D(currentDirectionVector, initForwardVector);
 			float rot;
-			if (temp.mX > InputManager::sInstance->mClickedDown[1].mX)
+
+			if (objInScreenCoords.mX > InputManager::sInstance->mClickedDown[1].mX)
 			{
 				rot = acosf(dotAB) * (-1.0f);
 			}
@@ -58,8 +51,8 @@ void RoboCatClient::Update()
 			{
 				rot = acosf(dotAB);
 			}						
-			SetRotation(rot);
-			int yy = 1;
+
+			SetRotation(rot);			
 		}
 
 		const Move* pendingMove = InputManager::sInstance->GetAndClearPendingMove();
