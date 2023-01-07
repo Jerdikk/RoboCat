@@ -4,8 +4,8 @@ std::unique_ptr< HUD >	HUD::sInstance;
 
 
 HUD::HUD() :
-mScoreBoardOrigin( 50.f, 60.f, 0.0f ),
-mBandwidthOrigin( 50.f, 10.f, 0.0f ),
+mScoreBoardOrigin( 50.f, 120.f, 0.0f ),
+mBandwidthOrigin( 50.f, 60.f, 0.0f ),
 mRoundTripTimeOrigin( 50.f, 10.f, 0.0f ),
 mScoreOffset( 0.f, 50.f, 0.0f ),
 mHealthOffset( 1000, 10.f, 0.0f ),

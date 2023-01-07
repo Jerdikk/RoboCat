@@ -22,7 +22,7 @@ RoboCat::RoboCat() :
 void RoboCat::ProcessInput( float inDeltaTime, const InputState& inInputState )
 {
 	//process our input....
-
+	
 	//turning...
 	float newRotation = GetRotation() + inInputState.GetDesiredHorizontalDelta() * mMaxRotationSpeed * inDeltaTime;
 	SetRotation( newRotation );

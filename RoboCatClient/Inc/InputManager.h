@@ -19,6 +19,11 @@ public:
 
 	void				Update();
 
+	bool mButton[4];
+
+	Vector3 mClickedDown[4];
+	Vector3 mClickedUp[4];
+
 private:
 
 	InputState							mCurrentState;

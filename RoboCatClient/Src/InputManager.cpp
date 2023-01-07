@@ -68,14 +68,24 @@ void InputManager::HandleInput( EInputAction inInputAction, int inKeyCode )
 
 void InputManager::HandleMouse(SDL_Event *event,bool isUp, bool isDown)
 {
+
 	if (isUp)
 	{
-		int yy = 1;
+		mButton[event->button.button] = false;
+		mClickedUp[event->button.button].mX = event->button.x;
+		mClickedUp[event->button.button].mY = event->button.y;
+		mClickedDown[event->button.button].mX = -1.0;
+		mClickedDown[event->button.button].mY = -1.0;
+
 	}
 	else
 		if (isDown)
 		{
-			int yyyy = 2;
+			mButton[event->button.button] = true;
+			mClickedDown[event->button.button].mX = event->button.x;
+			mClickedDown[event->button.button].mY = event->button.y;
+			mClickedUp[event->button.button].mX = -1.0;
+			mClickedUp[event->button.button].mY = -1.0;
 		}
 		else
 		{/// only mouse move
@@ -88,7 +98,9 @@ InputManager::InputManager() :
 	mNextTimeToSampleInput( 0.f ),
 	mPendingMove( nullptr )
 {
-
+	for (int i = 0; i < 4; i++)
+		mButton[i] = false;
+	
 }
 
 const Move& InputManager::SampleInputAsMove()

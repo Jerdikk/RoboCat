@@ -19,7 +19,7 @@ SpriteComponent::~SpriteComponent()
 }
 
 
-void SpriteComponent::Draw( const SDL_Rect& inViewTransform )
+void SpriteComponent::Draw( SDL_Rect* inViewTransform )
 {
 	if( mTexture )
 	{
@@ -36,8 +36,8 @@ void SpriteComponent::Draw( const SDL_Rect& inViewTransform )
 		SDL_Rect dstRect;
 		dstRect.w = static_cast< int >( mTexture->GetWidth() * objScale );
 		dstRect.h = static_cast< int >( mTexture->GetHeight() * objScale );
-		dstRect.x = static_cast<int>( objLocation.mX * inViewTransform.w + inViewTransform.x - dstRect.w / 2 );
-		dstRect.y = static_cast<int>( objLocation.mY * inViewTransform.h + inViewTransform.y - dstRect.h / 2 );
+		dstRect.x = static_cast<int>( objLocation.mX * inViewTransform->w + inViewTransform->x - dstRect.w / 2 );
+		dstRect.y = static_cast<int>( objLocation.mY * inViewTransform->h + inViewTransform->y - dstRect.h / 2 );
 		
 		// Blit the texture
 		SDL_RenderCopyEx( GraphicsDriver::sInstance->GetRenderer(), mTexture->GetData(), nullptr,

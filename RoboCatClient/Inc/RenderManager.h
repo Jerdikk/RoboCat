@@ -15,6 +15,9 @@ public:
 	void RemoveComponent( SpriteComponent* inComponent );
 	int	 GetComponentIndex( SpriteComponent* inComponent ) const;
 
+	SDL_Rect* GetViewTransform() { return mViewTransform; }
+
+	~RenderManager();
 private:
 
 	RenderManager();
@@ -22,7 +25,7 @@ private:
 	//this can't be only place that holds on to component- it has to live inside a GameObject in the world
 	vector< SpriteComponent* >		mComponents;
 
-	SDL_Rect						mViewTransform;
+	SDL_Rect						*mViewTransform;
 
 
 };

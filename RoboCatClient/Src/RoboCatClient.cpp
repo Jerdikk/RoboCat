@@ -27,6 +27,41 @@ void RoboCatClient::Update()
 	//is this the cat owned by us?
 	if( GetPlayerId() == NetworkManagerClient::sInstance->GetPlayerId() )
 	{
+		if (InputManager::sInstance->mButton[1])
+		{
+			SDL_Rect *viewTransform = RenderManager::sInstance->GetViewTransform();
+
+			/*mViewTransform->x = viewport.w / 2;
+			mViewTransform->y = viewport.h / 2;
+			mViewTransform->w = 100;
+			mViewTransform->h = 100;*/
+
+
+			//SDL_Rect viewport = GraphicsDriver::sInstance->GetLogicalViewport();		
+
+			Vector3 objLocation = mSpriteComponent->GetGameObject()->GetLocation();
+			float objScale = mSpriteComponent->GetGameObject()->GetScale();
+			Vector3 temp;
+			temp.mX = static_cast<int>(objLocation.mX * viewTransform->w + viewTransform->x);
+			temp.mY = static_cast<int>(objLocation.mY * viewTransform->h + viewTransform->y);
+
+			Vector3 temp3(0.0, -1.0, 0.0);
+			Vector3 temp1 = InputManager::sInstance->mClickedDown[1]-temp;
+			temp1.Normalize2D();
+			float dotAB = Dot2D(temp1, temp3);
+			float rot;
+			if (temp.mX > InputManager::sInstance->mClickedDown[1].mX)
+			{
+				rot = acosf(dotAB) * (-1.0f);
+			}
+			else
+			{
+				rot = acosf(dotAB);
+			}						
+			SetRotation(rot);
+			int yy = 1;
+		}
+
 		const Move* pendingMove = InputManager::sInstance->GetAndClearPendingMove();
 		//in theory, only do this if we want to sample input this frame / if there's a new move ( since we have to keep in sync with server )
 		if( pendingMove ) //is it time to sample a new move...
@@ -256,7 +291,7 @@ void RoboCatClient::DoClientSidePredictionAfterReplicationForRemoteCat( uint32_t
 
 		//simulate movement for an additional RTT
 		float rtt = NetworkManagerClient::sInstance->GetRoundTripTime();
-		LOG( "Other cat came in, simulating for an extra %f", rtt );
+		//LOG( "Other cat came in, simulating for an extra %f", rtt );
 
 		//let's break into framerate sized chunks though so that we don't run through walls and do crazy things...
 		float deltaTime = 1.f / 30.f;
