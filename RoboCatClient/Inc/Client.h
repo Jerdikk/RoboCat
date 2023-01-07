@@ -3,6 +3,7 @@ class Client : public Engine
 public:
 
 	static bool StaticInit( );
+	~Client();
 
 protected:
 

@@ -7,6 +7,7 @@
 
 bool Server::StaticInit()
 {
+	
 	sInstance.reset( new Server() );
 
 	
@@ -16,6 +17,7 @@ bool Server::StaticInit()
 
 Server::Server()
 {
+	Open_Error_File("server.log");
 
 	GameObjectRegistry::sInstance->RegisterCreationFunction( 'RCAT', RoboCatServer::StaticCreate );
 	GameObjectRegistry::sInstance->RegisterCreationFunction( 'MOUS', MouseServer::StaticCreate );
@@ -138,6 +140,7 @@ void Server::SpawnCatForPlayer( int inPlayerId )
 Server::~Server()
 {
 	SDL_DestroyWindow(mMainWindow);
+	Close_Error_File();
 }
 
 /*void Server::RemoveCatForPlayer(int inPlayerId)

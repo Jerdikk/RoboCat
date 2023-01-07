@@ -256,7 +256,7 @@ void RoboCatClient::DoClientSidePredictionAfterReplicationForRemoteCat( uint32_t
 
 		//simulate movement for an additional RTT
 		float rtt = NetworkManagerClient::sInstance->GetRoundTripTime();
-		//LOG( "Other cat came in, simulating for an extra %f", rtt );
+		LOG( "Other cat came in, simulating for an extra %f", rtt );
 
 		//let's break into framerate sized chunks though so that we don't run through walls and do crazy things...
 		float deltaTime = 1.f / 30.f;

@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdarg.h>
-#include <sys/timeb.h>
-#include <time.h>
-#include "log.h"
+#include <RoboCatPCH.h>
 
 FILE *fp_error                    = NULL; // general error file
 

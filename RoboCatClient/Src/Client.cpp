@@ -27,6 +27,11 @@ bool Client::StaticInit( )
 	return true;
 }
 
+Client::~Client()
+{
+	Close_Error_File();
+}
+
 Client::Client()
 {
 	GameObjectRegistry::sInstance->RegisterCreationFunction( 'RCAT', RoboCatClient::StaticCreate );
@@ -35,6 +40,12 @@ Client::Client()
 
 	string destination = StringUtils::GetCommandLineArg( 1 );
 	string name = StringUtils::GetCommandLineArg( 2 );
+
+	char timestring[280];
+
+	sprintf(timestring, "client%s.log", name.c_str());
+
+	Open_Error_File(timestring);
 
 	SocketAddressPtr serverAddress = SocketAddressFactory::CreateIPv4FromString( destination );
 

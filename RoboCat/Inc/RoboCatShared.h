@@ -85,3 +85,9 @@ class GameObject;
 #include "ReplicationCommand.h"
 #include "NetworkManager.h"
 #include "Engine.h"
+
+#include <stdio.h>
+#include <stdarg.h>
+#include <sys/timeb.h>
+#include <time.h>
+#include "log.h"

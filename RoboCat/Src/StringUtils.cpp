@@ -33,6 +33,12 @@ string StringUtils::Sprintf( const char* inFormat, ... )
 #else
 	vsnprintf(temp, 4096, inFormat, args);
 #endif
+	/*if (fp_error != NULL)
+	{
+		Write_Error(temp);
+		Write_Error("\n");
+	}*/
+
 	return string( temp );
 }
 
@@ -55,6 +61,13 @@ void StringUtils::Log( const char* inFormat, ... )
 #else
 	vsnprintf(temp, 4096, inFormat, args);
 #endif
+	if (fp_error != NULL)
+	{
+		Write_Error(temp);
+		Write_Error("\n");
+	}
+
+
 	OutputDebugString( temp );
 	OutputDebugString( "\n" );
 }
