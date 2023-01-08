@@ -67,7 +67,7 @@ int RenderManager::GetComponentIndex( SpriteComponent* inComponent ) const
 void RenderManager::RenderComponents()
 {
 	//Get the logical viewport so we can pass this to the SpriteComponents when it's draw time
-	SDL_Rect viewport = GraphicsDriver::sInstance->GetLogicalViewport();
+	//SDL_Rect viewport = GraphicsDriver::sInstance->GetLogicalViewport();
 	for( auto cIt = mComponents.begin(), end = mComponents.end(); cIt != end; ++cIt )
 	{
 		( *cIt )->Draw( mViewTransform );
